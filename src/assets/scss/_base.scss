@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+
+button {
+    background-color: transparent;
+    -webkit-appearance: none;
+    border: 0;
+    cursor: pointer;
+
+    &:focus {
+        outline: 0;
+  
+    }
+  }
+
+
+
+.furniture-container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.furniture-row {
+    margin: 0px -16px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.furniture-col {
+    width: 100%;
+    padding: 0px 16px;
+
+    @media (min-width: $md) {
+        width: 50%;
+    }
+}

@@ -1,24 +1,156 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
+import "./assets/scss/style.scss";
+import Filter from "./component/Filter";
+import axios from "axios";
+
+const url = "http://www.mocky.io/v2/5c9105cb330000112b649af8";
 
 function App() {
+  const [state, setState] = useState({
+    filterStyle: [],
+    product: [],
+    allProducts: [],
+    searchTerm: ""
+  });
+
+  // Fetch Data form API
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(url);
+
+        if (response) {
+          console.log(response);
+          setState({
+            ...state,
+            filterStyle: response.data.furniture_styles.map(style => {
+              return {
+                label: style,
+                value: style
+              };
+            }),
+            product: response.data.products,
+            allProducts: response.data.products
+          });
+        } else {
+          const error = "Internal Server Error. Please Try Again.";
+          throw error;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  const filterFunction = (filter, data) => {
+    let filteredStyle = [];
+    let filteredDeliveryTime = [];
+
+    // Filter by Furniture Styles
+    data.map(product => {
+      const checkStyle = product.furniture_style.map(style => {
+        if (filter.furnitureStyle.includes(style)) {
+          return filteredStyle.push(product);
+        }
+        return null;
+      });
+      return checkStyle;
+    });
+
+    // Filter by Delivery Time Within Certain Period
+    let dataForDelivery = [];
+    if (filteredStyle.length) {
+      dataForDelivery = filteredStyle;
+    } else {
+      dataForDelivery = state.allProducts;
+    }
+
+    dataForDelivery.map(product => {
+      const time = parseInt(product.delivery_time);
+      const deliveryDuration = filter.deliveryTime.map(f => {
+        console.log("f", f);
+        if (f === 7) {
+          return 8 > time && (time < 7 || time === 7);
+        } else if (f === 14) {
+          return 15 > time && time > 7 && (time < 14 || time === 14);
+        } else if (f === 30) {
+          return 31 > time && time > 14 && (time < 30 || time === 30);
+        } else if (f > 30) {
+          return time > 30 && 29 < time;
+        }
+
+        return false;
+      });
+
+      if (deliveryDuration.filter(x => x === true).length) {
+        return filteredDeliveryTime.push(product);
+      }
+
+      return null;
+    });
+
+    setState({
+      ...state,
+      product: filter.deliveryTime.length
+        ? [...new Set(filteredDeliveryTime)]
+        : [...new Set(filteredStyle)]
+    });
+  };
+
+  const checkFilterOrSearch = (type, filter) => {
+    if (type === "filter" || (type === "search" && filter === "")) {
+      if (filter.deliveryTime.length || filter.furnitureStyle.length) {
+        filterFunction(filter, state.allProducts);
+      } else {
+        setState({
+          ...state,
+          product: state.allProducts
+        });
+      }
+    } else {
+      if (state.allProducts.length !== state.product) {
+        const filtered = state.product.filter(val =>
+          val.name.toLowerCase().includes(filter.toLowerCase())
+        );
+        setState({
+          ...state,
+          searchTerm: filter,
+          product: filtered
+        });
+      } else {
+        const filtered = state.product.filter(val =>
+          val.name.toLowerCase().includes(filter.toLowerCase())
+        );
+        setState({
+          ...state,
+          searchTerm: filter,
+          product: filtered
+        });
+      }
+    }
+  };
+
+  console.log("app state", state);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Filter filterStyle={state.filterStyle} filterProduct={checkFilterOrSearch} />
+      <div className="furniture-container" style={{ padding: "32px 0px" }}>
+        {state.product.map(data => {
+          return (
+            <div key={data.name} style={{ marginBottom: 16 }}>
+              <div>{data.name}</div>
+
+              <div>{data.furniture_style.join(", ")}</div>
+
+              <div>{data.delivery_time}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
