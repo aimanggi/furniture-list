@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/furniture-list/static/css/main.11b51df3.chunk.css",
-    "main.js": "/furniture-list/static/js/main.2976d4f3.chunk.js",
-    "main.js.map": "/furniture-list/static/js/main.2976d4f3.chunk.js.map",
+    "main.js": "/furniture-list/static/js/main.0b100496.chunk.js",
+    "main.js.map": "/furniture-list/static/js/main.0b100496.chunk.js.map",
     "runtime-main.js": "/furniture-list/static/js/runtime-main.b894aee9.js",
     "runtime-main.js.map": "/furniture-list/static/js/runtime-main.b894aee9.js.map",
     "static/js/2.c9379c9c.chunk.js": "/furniture-list/static/js/2.c9379c9c.chunk.js",
     "static/js/2.c9379c9c.chunk.js.map": "/furniture-list/static/js/2.c9379c9c.chunk.js.map",
     "index.html": "/furniture-list/index.html",
-    "precache-manifest.1a2717168bc9b55fab4ee2d50be0aa87.js": "/furniture-list/precache-manifest.1a2717168bc9b55fab4ee2d50be0aa87.js",
+    "precache-manifest.34cdbf587b0cce7f31408e4b3131cc54.js": "/furniture-list/precache-manifest.34cdbf587b0cce7f31408e4b3131cc54.js",
     "service-worker.js": "/furniture-list/service-worker.js",
     "static/css/main.11b51df3.chunk.css.map": "/furniture-list/static/css/main.11b51df3.chunk.css.map",
     "static/js/2.c9379c9c.chunk.js.LICENSE.txt": "/furniture-list/static/js/2.c9379c9c.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.b894aee9.js",
     "static/js/2.c9379c9c.chunk.js",
     "static/css/main.11b51df3.chunk.css",
-    "static/js/main.2976d4f3.chunk.js"
+    "static/js/main.0b100496.chunk.js"
   ]
 }
