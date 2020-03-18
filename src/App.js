@@ -6,7 +6,7 @@ import axios from "axios";
 import priceFormat from "./helper/priceFormat";
 import Loading from "./component/Loading";
 
-const url = "http://www.mocky.io/v2/5c9105cb330000112b649af8";
+const url = "https://www.mocky.io/v2/5c9105cb330000112b649af8";
 
 function App() {
   const [state, setState] = useState({
