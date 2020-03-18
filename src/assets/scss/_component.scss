@@ -30,3 +30,109 @@
     font-weight: 700;
     margin-bottom: 8px;
 }
+
+// Card
+
+.furniture-card {
+    border: 1px solid #E6E6E6;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 6px 0 #E6E6E6;
+    padding: 32px;
+
+    .material-icons {
+        position: relative;
+        top: 2px;
+        font-size: 14px;
+        margin-right: 8px;
+        line-height: 21px;
+    }
+
+
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+
+    &__name {
+        color: $primary;
+    }
+
+    &__price {
+        color: $secondary;
+    }
+
+    &__style {
+        font-size: 14px;
+    }
+
+    &__description {
+        margin-bottom: 8px;
+    }
+
+    &__delivery {
+        font-size: 12px;
+        margin-top: 16px;
+        text-align: right;
+
+        .material-icons {
+            
+            line-height: 16px;
+        }
+    }
+    
+}
+
+
+.content-loader {
+    background-color: #fff;
+    padding: 8px;
+    position: relative;
+    border-radius: 2px;
+    margin-bottom: 0;
+    // height: 200px;
+    overflow: hidden;
+  
+    &:only-child {
+      margin-top:0;
+    }
+  
+    &:before {
+      content: '';
+      height: 229px;
+      display: block;
+      background-color: #ededed;
+      box-shadow: -48px 78px 0 -48px #ededed, -51px 102px 0 -51px #ededed;
+    }
+  
+    &:after {
+      content: '';
+      background-color: #333;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation-duration: 0.6s;
+      animation-iteration-count: infinite;
+      animation-name: loader-animate;
+      animation-timing-function: linear;
+      background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0) 81%);
+      background: -o-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0) 81%);
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0) 81%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 );
+    }
+  }
+   
+  
+  // Content Loader animation
+  @keyframes loader-animate{
+   0%{
+      transform: translate3d(-100%, 0, 0);
+    }
+   100%{
+      transform: translate3d(100%, 0, 0);
+    }
+  }

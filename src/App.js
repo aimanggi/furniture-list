@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import "./assets/scss/style.scss";
 import Filter from "./component/Filter";
 import axios from "axios";
+import priceFormat from "./helper/priceFormat";
+import Loading from "./component/Loading";
 
 const url = "http://www.mocky.io/v2/5c9105cb330000112b649af8";
 
@@ -11,7 +13,8 @@ function App() {
     filterStyle: [],
     product: [],
     allProducts: [],
-    searchTerm: ""
+    searchTerm: "",
+    loading: true
   });
 
   // Fetch Data form API
@@ -30,6 +33,7 @@ function App() {
                 value: style
               };
             }),
+            loading: false,
             product: response.data.products,
             allProducts: response.data.products
           });
@@ -134,23 +138,54 @@ function App() {
   };
 
   console.log("app state", state);
-
   return (
     <div className="">
-      <Filter filterStyle={state.filterStyle} filterProduct={checkFilterOrSearch} />
-      <div className="furniture-container" style={{ padding: "32px 0px" }}>
-        {state.product.map(data => {
-          return (
-            <div key={data.name} style={{ marginBottom: 16 }}>
-              <div>{data.name}</div>
+      <Filter
+        filterStyle={state.filterStyle}
+        filterProduct={checkFilterOrSearch}
+      />
+      {state.loading ? (
+        <Loading />
+      ) : (
+        <div className="furniture-container" style={{ paddingTop: 32 }}>
+          <div className="furniture-row">
+            {state.product.map(data => {
+              return (
+                <div
+                  className="furniture-col "
+                  key={data.name}
+                  style={{ marginBottom: 16 }}
+                >
+                  <div className="furniture-card">
+                    <div className="furniture-card__title">
+                      <div className="furniture-card__name">{data.name}</div>
+                      <div className="furniture-card__price">
+                        {priceFormat(data.price)}
+                      </div>
+                    </div>
 
-              <div>{data.furniture_style.join(", ")}</div>
+                    <div className="furniture-card__description">
+                      {data.description.length > 144
+                        ? `${data.description.substring(0, 144)}...`
+                        : data.description}
+                    </div>
 
-              <div>{data.delivery_time}</div>
-            </div>
-          );
-        })}
-      </div>
+                    <div className="furniture-card__style">
+                      <i className="material-icons">local_offer</i>
+                      {data.furniture_style.join(", ")}
+                    </div>
+
+                    <div className="furniture-card__delivery">
+                      <i className="material-icons">access_time</i>
+                      {data.delivery_time} hari pengiriman
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

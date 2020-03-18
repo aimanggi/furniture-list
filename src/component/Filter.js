@@ -44,7 +44,7 @@ const Filter = props => {
         />
 
         <div className="furniture-row" style={{ padding: "32px 0px" }}>
-          <div className="furniture-col">
+          <div className="furniture-col" style={{ marginBottom: 16 }}>
             <SelectField
               placeholder="Furniture Style"
               options={props.filterStyle}
