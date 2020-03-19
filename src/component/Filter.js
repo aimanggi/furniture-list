@@ -2,6 +2,25 @@
 import React, { useState, useEffect } from "react";
 import SelectField from "./SelectField";
 
+const deliveryOptions = [
+  {
+    label: "1 Week",
+    value: 7
+  },
+  {
+    label: "2 Weeks",
+    value: 14
+  },
+  {
+    label: "1 Month",
+    value: 30
+  },
+  {
+    label: "More",
+    value: 31
+  }
+]
+
 const Filter = props => {
   const [state, setState] = useState({
     searchTerm: "",
@@ -10,6 +29,7 @@ const Filter = props => {
     name: ""
   });
 
+  // Call callback function if filter or search value change
   useEffect(() => {
     props.filterProduct("filter", {
         furnitureStyle: state.furnitureStyle
@@ -54,24 +74,7 @@ const Filter = props => {
           <div className="furniture-col">
             <SelectField
               placeholder="Delivery Time"
-              options={[
-                {
-                  label: "1 Week",
-                  value: 7
-                },
-                {
-                  label: "2 Weeks",
-                  value: 14
-                },
-                {
-                  label: "1 Month",
-                  value: 30
-                },
-                {
-                  label: "More",
-                  value: 31
-                }
-              ]}
+              options={deliveryOptions}
               onChange={value => onChangeFilter(value, "deliveryTime")}
             />
           </div>

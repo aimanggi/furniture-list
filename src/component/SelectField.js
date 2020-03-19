@@ -3,7 +3,6 @@ import Select, { components } from "react-select";
 
 const styles = {
   option: (styles, state) => {
-    //   console.log(state);
     return {
       ...styles,
       backgroundColor: state.isFocused ? '#f2f2f2 !important' : '#fff !important'
@@ -12,7 +11,6 @@ const styles = {
 };
 
 const Option = props => {
-//   console.log("props", props);
   return (
     <div>
       <components.Option {...props}>

@@ -74,28 +74,28 @@ function App() {
 
     dataForDelivery.map(product => {
       const time = parseInt(product.delivery_time);
-      const deliveryDuration = filter.deliveryTime.map(f => {
-        console.log("f", f);
-        if (f === 7) {
+      const deliveryDuration = filter.deliveryTime.map(val => {
+        if (val === 7) {
           return 8 > time && (time < 7 || time === 7);
-        } else if (f === 14) {
+        } else if (val === 14) {
           return 15 > time && time > 7 && (time < 14 || time === 14);
-        } else if (f === 30) {
+        } else if (val === 30) {
           return 31 > time && time > 14 && (time < 30 || time === 30);
-        } else if (f > 30) {
+        } else if (val > 30) {
           return time > 30 && 29 < time;
         }
 
         return false;
       });
 
-      if (deliveryDuration.filter(x => x === true).length) {
+      if (deliveryDuration.filter(val => val === true).length) {
         return filteredDeliveryTime.push(product);
       }
 
       return null;
     });
 
+    // Update product and remove duplicate
     setState({
       ...state,
       product: filter.deliveryTime.length
@@ -104,6 +104,7 @@ function App() {
     });
   };
 
+  // Callback function to filter or search product
   const checkFilterOrSearch = (type, filter) => {
     if (type === "filter" || (type === "search" && filter === "")) {
       if (filter.deliveryTime.length || filter.furnitureStyle.length) {
@@ -140,10 +141,12 @@ function App() {
   console.log("app state", state);
   return (
     <div className="">
+      {/* Filter */}
       <Filter
         filterStyle={state.filterStyle}
         filterProduct={checkFilterOrSearch}
       />
+      {/* Card */}
       {state.loading ? (
         <Loading />
       ) : (
@@ -160,7 +163,7 @@ function App() {
                     <div className="furniture-card__title">
                       <div className="furniture-card__name">{data.name}</div>
                       <div className="furniture-card__price">
-                        {priceFormat(data.price)}
+                        Rp.{priceFormat(data.price)}
                       </div>
                     </div>
 
